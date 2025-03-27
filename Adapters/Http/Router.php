@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Adapters\Http;
 
+use App\ServiceLocator;
+
 class Router
 {
     /**
@@ -19,7 +21,7 @@ class Router
         $this->routes[$method][$path] = $action;
     }
 
-    public function dispatch(string $method, string $path): void
+    public function dispatch(string $method, string $path, ServiceLocator $serviceLocator): void
     {
         $action = $this->routes[$method][$path] ?? null;
 
@@ -31,7 +33,7 @@ class Router
         }
 
         [$controllerClass, $controllerMethod] = $action;
-        $controller = new $controllerClass();
+        $controller = $serviceLocator->get($controllerClass);
 
         $callback = [$controller, $controllerMethod];
 

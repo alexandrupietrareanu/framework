@@ -1,6 +1,7 @@
 {
     "require": {
-        "martin-georgiev/postgresql-for-doctrine": "^2.10"
+        "martin-georgiev/postgresql-for-doctrine": "^2.10",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.73",

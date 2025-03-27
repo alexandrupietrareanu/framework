@@ -9,12 +9,7 @@ use App\Repository\ProductRepository;
 
 class ProductController
 {
-    private ProductRepository $productRepository;
-
-    public function __construct()
-    {
-        $this->productRepository = new ProductRepository();
-    }
+    public function __construct(private ProductRepository $productRepository) {}
 
     public function create(): void
     {
