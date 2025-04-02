@@ -22,6 +22,22 @@ class PostgresRepository
     }
 
     /**
+     * Retrieve all records from a table.
+     *
+     * @param string $table The table name.
+     * @return array<array<string, mixed>> An array of associative arrays for each record.
+     */
+    public function findAll(string $table): array
+    {
+        $pdo = $this->connection::get();
+        $stmt = $pdo->prepare("SELECT * FROM {$table}");
+        $stmt->execute();
+        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $results ?: [];
+    }
+
+    /**
      * @param array<string, null|float|int|string> $data
      */
     public function save(string $table, array $data): void

@@ -3,13 +3,18 @@ version: "3.8"
 services:
   app:
     build: .
-    container_name: php_domain_app
-    ports:
-      - "8000:8000"
     volumes:
-      - ./:/var/www/html
+      - .:/var/www/html
+    ports:
+      - "8080:80"
     depends_on:
       - db
+    environment:
+      # If you need to pass any environment variables to your PHP app
+      DB_HOST: db
+      DB_NAME: myapp
+      DB_USER: username
+      DB_PASS: password
 
   db:
     image: postgres:16-alpine

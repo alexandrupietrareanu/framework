@@ -11,11 +11,32 @@ use App\Model\Product;
 
 class ProductRepository implements ProductRepositoryInterface
 {
+    private string $table = 'products';
+
     private PostgresRepository $repository;
 
     public function __construct()
     {
         $this->repository = new PostgresRepository(new Connection());
+    }
+
+    /**
+     * Returns an array of Product models.
+     *
+     * @return Product[]
+     */
+    public function findAll(): array
+    {
+        $rows = $this->repository->findAll($this->table);
+        $products = [];
+        foreach ($rows as $row) {
+            $products[] = new Product(
+                (int)$row['id'],
+                $row['name'],
+                (float)$row['price']
+            );
+        }
+        return $products;
     }
 
     public function findById(int $id): ?Product

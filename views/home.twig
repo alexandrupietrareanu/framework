@@ -1,0 +1,25 @@
+{% extends 'base.twig' %}
+
+{% block title %}Home - Our Products{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Our Products</h1>
+        {% if products is empty %}
+            <div class="alert alert-info">
+                No products available. <a href="/create" class="alert-link">Add a new product</a>.
+            </div>
+        {% else %}
+            <div class="list-group">
+                {% for product in products %}
+                    <a href="/show?productId={{ product.id }}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ product.name }}</h5>
+                            <small>${{ product.price }}</small>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
